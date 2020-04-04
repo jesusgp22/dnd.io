@@ -66,7 +66,7 @@ const WelcomeForm = ({ mode, setMode }) => {
                 </div>
                 <button type='submit' className='btn-block'>{mode} ROOM</button>
             </div>
-            <a className="card-link" href="#" onClick={() => setMode(null)}>&larr; Go back</a>
+            <button onClick={() => setMode(null)}>&larr; Go back</button>
         </form>
     )
 }
