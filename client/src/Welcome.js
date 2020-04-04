@@ -1,7 +1,13 @@
 import React, { Fragment, useState } from 'react'
+import { Redirect } from 'react-router-dom'
 
 const JOIN_MODE = 'JOIN'
 const CREATE_MODE = 'CREATE'
+
+const INITIAL_FORM_STATE = {
+    username: '',
+    roomName: '',
+}
 
 const WelcomeScreen = ({ setMode }) => (
     <Fragment>
@@ -12,17 +18,51 @@ const WelcomeScreen = ({ setMode }) => (
 )
 
 const WelcomeForm = ({ mode, setMode }) => {
+    const [redirectTo, setRedirectTo] = useState(null)
+    const [formState, setFormState] = useState(INITIAL_FORM_STATE)
+    
+    const { username, roomName } = formState
+
+    const handleChange = ({ target: { value, name }}) => {
+        setFormState((prevState) => ({ ...prevState, [name]: value }))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const uri = encodeURI(roomName)
+        // create or join room and redirect to room's URI
+        setRedirectTo(`/room/${uri}`)
+    } 
+
+    if(redirectTo !== null){
+        return <Redirect to={redirectTo} />
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className='section'>
                 <h4 className='card-title'>Welcome!</h4>
                 <div className='form-group'>
-                    <label for="roomId-input">Room Name</label>
-                    <input type='text' className='input-block' name='roomId' id='roomId-input' />
+                    <label for="roomName-input">Room Name</label>
+                    <input
+                        type='text'
+                        className='input-block'
+                        name='roomName'
+                        id='roomName-input'
+                        onChange={handleChange}
+                        value={roomName}
+                    />
                 </div>
                 <div className='form-group'>
                     <label for="username-input">Character Name</label>
-                    <input type='text' name='username' className='input-block' id='username-input' />
+                    <input
+                        type='text'
+                        name='username'
+                        className='input-block'
+                        id='username-input'
+                        onChange={handleChange}
+                        value={username}
+                    />
                 </div>
                 <button type='submit' className='btn-block'>{mode} ROOM</button>
             </div>
