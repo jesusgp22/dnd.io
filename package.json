@@ -1,0 +1,21 @@
+{
+  "name": "dnd.io",
+  "version": "1.0.0",
+  "description": "dnd online board",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"nodemon --ignore client\" \"cd client && yarn start\"",
+    "pre-deploy": "cd client && yarn build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jesusgp22@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
