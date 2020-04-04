@@ -1,13 +1,20 @@
 import React from 'react';
-import Welcome from './Welcome'
+import Welcome from './Welcome';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { useSocket } from './socket'
+import { useSocket } from './socket';
 
 const App = () => {
 
   useSocket()
   return (
-    <Welcome />
+    <Router>
+      <Switch>
+        <Route path="/">
+          <Welcome />
+        </Route>  
+      </Switch>
+    </Router>
   );
 }
 
